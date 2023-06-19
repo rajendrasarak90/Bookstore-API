@@ -1,7 +1,7 @@
-const Product = require("../models/product");
+const Product = require("../schema/books");
 
 // To get all the products from the database
-const getAllProducts = async (req, res) => {
+const getAllBooks = async (req, res) => {
   try {
     const products = await Product.find({});
     if (products.length < 1) {
