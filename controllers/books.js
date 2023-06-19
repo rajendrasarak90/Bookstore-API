@@ -1,59 +1,59 @@
-const Book = require("../schema/books");
+const Books = require("../schema/books");
 
-// To get all the products from the database
+// To get all the books from the database
 const getAllBooks = async (req, res) => {
   try {
-    const products = await Product.find({});
-    if (products.length < 1) {
+    const books = await Books.find({});
+    if (books.length < 1) {
       res.status(200).json({
-        msg: "No products found",
+        msg: "No Books found",
       });
       return;
     }
-    if (products) {
+    if (books) {
       res.status(200).json({
-        data: products,
+        data: books,
       });
     }
   } catch (error) {
     res.status(404).json({
-      msg: "There was an error finding products",
+      msg: "Error in finding books",
     });
   }
 };
 
-// To create a new product in our database
+// To create a new book in our database
 const createNewBook = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    const book = await books.create(req.body);
     res.status(201).json({
       data: {
-        product,
+        book,
       },
     });
   } catch (error) {
     res.status(400).json({
       data: {
-        msg: "There was an error creating new product",
+        msg: "Error in creating new book",
       },
     });
   }
 };
 
-// To delete a single product from our database using id
-// const deleteProduct = async (req, res) => {
+// To delete a single book from our database using id
+// const deletebook = async (req, res) => {
 //   try {
-//     const { id: productID } = req.params;
-//     // deleting the product from database
-//     const product = await Product.findOneAndDelete({
-//       _id: productID,
+//     const { id: bookID } = req.params;
+//     // deleting the book from database
+//     const book = await book.findOneAndDelete({
+//       _id: bookID,
 //     });
-//     if (!product) {
+//     if (!book) {
 //       return;
 //     }
 //     res.status(200).send({
 //       data: {
-//         msg: "Product Deleted",
+//         msg: "book Deleted",
 //       },
 //     });
 //   } catch (error) {
@@ -65,11 +65,11 @@ const createNewBook = async (req, res) => {
 //   }
 // };
 
-// // To update the product quantity in the database
+// // To update the book quantity in the database
 // const updateBook = async (req, res) => {
 //   try {
-//     // Destructuring the ProductID and Number query
-//     const { id: productID } = req.params;
+//     // Destructuring the bookID and Number query
+//     const { id: bookID } = req.params;
 //     const { number } = req.query;
 
 //     if (!number) {
@@ -81,17 +81,17 @@ const createNewBook = async (req, res) => {
 //       return;
 //     }
 
-//     const product = await Product.findOne({
-//       _id: productID,
+//     const book = await book.findOne({
+//       _id: bookID,
 //     });
-//     // Adding the new numebr from the query params and the previous number of product
-//     let newQuantity = product.quantity + +number;
+//     // Adding the new numebr from the query params and the previous number of book
+//     let newQuantity = book.quantity + +number;
 
 //     if (newQuantity > 0) {
 //       // Updating the data in the database
-//       const updatedProduct = await Product.findOneAndUpdate(
+//       const updatedbook = await book.findOneAndUpdate(
 //         {
-//           _id: productID,
+//           _id: bookID,
 //         },
 //         {
 //           quantity: newQuantity,
@@ -103,14 +103,14 @@ const createNewBook = async (req, res) => {
 //       );
 //       res.status(200).json({
 //         data: {
-//           updatedProduct,
+//           updatedbook,
 //           msg: "Successfully Updated",
 //         },
 //       });
 //     } else {
 //       res.status(400).json({
 //         data: {
-//           msg: "Product quantity can not be zero or less",
+//           msg: "book quantity can not be zero or less",
 //         },
 //       });
 //       return;

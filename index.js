@@ -4,7 +4,9 @@ const connectDB = require("./database/mongoose");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Hello...!");
+  res.send(
+    "Welcome to the Bookstore API ...! Try using API's with Postman Softeware"
+  );
 });
 
 app.use("api/books", require("./routes/books"));
