@@ -7,11 +7,11 @@ const BooksSchema = new mongoose.Schema({
     required: true,
   },
   auther: {
-    type: Number,
+    type: String,
     required: true,
   },
 });
 
-const Books = mongoose.model('Books', BooksSchema);
+const Books = mongoose.model("Books", BooksSchema);
 
 module.exports = Books;

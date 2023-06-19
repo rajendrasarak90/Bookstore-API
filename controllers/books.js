@@ -25,7 +25,7 @@ const getAllBooks = async (req, res) => {
 // To create a new book in our database
 const createNewBook = async (req, res) => {
   try {
-    const book = await books.create(req.body);
+    const book = await Books.create(req.body);
     res.status(201).json({
       data: {
         book,
