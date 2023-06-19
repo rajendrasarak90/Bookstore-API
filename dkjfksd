@@ -1,0 +1,23 @@
+[33mcommit 96170e85ff5d87ad7c1a974efcc9b465047570f8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Rajendra Sarak <rajendrasarak622@gmail.com>
+Date:   Mon Jun 19 23:45:12 2023 +0530
+
+    Books Schema
+
+[33mcommit e8ebb40d4fab62618f1102cc406acfb226345f01[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Rajendra Sarak <rajendrasarak622@gmail.com>
+Date:   Mon Jun 19 23:36:37 2023 +0530
+
+    Connected to the database
+
+[33mcommit 0aa74448e516d5a8f9ad35d0f2000e33282a53f0[m
+Author: Rajendra Sarak <rajendrasarak622@gmail.com>
+Date:   Mon Jun 19 23:03:20 2023 +0530
+
+    server setup done
+
+[33mcommit f6264b1ee297f18330a961aeaf5ae150225d7ad3[m
+Author: Rajendra Sarak <rajendrasarak622@gmail.com>
+Date:   Mon Jun 19 22:41:38 2023 +0530
+
+    project setup

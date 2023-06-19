@@ -1,4 +1,4 @@
-const Product = require("../schema/books");
+const Book = require("../schema/books");
 
 // To get all the products from the database
 const getAllBooks = async (req, res) => {
@@ -23,7 +23,7 @@ const getAllBooks = async (req, res) => {
 };
 
 // To create a new product in our database
-const createNewProduct = async (req, res) => {
+const createNewBook = async (req, res) => {
   try {
     const product = await Product.create(req.body);
     res.status(201).json({
@@ -41,93 +41,93 @@ const createNewProduct = async (req, res) => {
 };
 
 // To delete a single product from our database using id
-const deleteProduct = async (req, res) => {
-  try {
-    const { id: productID } = req.params;
-    // deleting the product from database
-    const product = await Product.findOneAndDelete({
-      _id: productID,
-    });
-    if (!product) {
-      return;
-    }
-    res.status(200).send({
-      data: {
-        msg: "Product Deleted",
-      },
-    });
-  } catch (error) {
-    res.status(400).send({
-      data: {
-        msg: error,
-      },
-    });
-  }
-};
+// const deleteProduct = async (req, res) => {
+//   try {
+//     const { id: productID } = req.params;
+//     // deleting the product from database
+//     const product = await Product.findOneAndDelete({
+//       _id: productID,
+//     });
+//     if (!product) {
+//       return;
+//     }
+//     res.status(200).send({
+//       data: {
+//         msg: "Product Deleted",
+//       },
+//     });
+//   } catch (error) {
+//     res.status(400).send({
+//       data: {
+//         msg: error,
+//       },
+//     });
+//   }
+// };
 
-// To update the product quantity in the database
-const updateBook = async (req, res) => {
-  try {
-    // Destructuring the ProductID and Number query
-    const { id: productID } = req.params;
-    const { number } = req.query;
+// // To update the product quantity in the database
+// const updateBook = async (req, res) => {
+//   try {
+//     // Destructuring the ProductID and Number query
+//     const { id: productID } = req.params;
+//     const { number } = req.query;
 
-    if (!number) {
-      res.status(400).json({
-        data: {
-          msg: "Error while updating quantity",
-        },
-      });
-      return;
-    }
+//     if (!number) {
+//       res.status(400).json({
+//         data: {
+//           msg: "Error while updating quantity",
+//         },
+//       });
+//       return;
+//     }
 
-    const product = await Product.findOne({
-      _id: productID,
-    });
-    // Adding the new numebr from the query params and the previous number of product
-    let newQuantity = product.quantity + +number;
+//     const product = await Product.findOne({
+//       _id: productID,
+//     });
+//     // Adding the new numebr from the query params and the previous number of product
+//     let newQuantity = product.quantity + +number;
 
-    if (newQuantity > 0) {
-      // Updating the data in the database
-      const updatedProduct = await Product.findOneAndUpdate(
-        {
-          _id: productID,
-        },
-        {
-          quantity: newQuantity,
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      res.status(200).json({
-        data: {
-          updatedProduct,
-          msg: "Successfully Updated",
-        },
-      });
-    } else {
-      res.status(400).json({
-        data: {
-          msg: "Product quantity can not be zero or less",
-        },
-      });
-      return;
-    }
-  } catch (error) {
-    res.status(400).json({
-      data: {
-        msg: "Error while updating quantity",
-      },
-    });
-  }
-};
+//     if (newQuantity > 0) {
+//       // Updating the data in the database
+//       const updatedProduct = await Product.findOneAndUpdate(
+//         {
+//           _id: productID,
+//         },
+//         {
+//           quantity: newQuantity,
+//         },
+//         {
+//           new: true,
+//           runValidators: true,
+//         }
+//       );
+//       res.status(200).json({
+//         data: {
+//           updatedProduct,
+//           msg: "Successfully Updated",
+//         },
+//       });
+//     } else {
+//       res.status(400).json({
+//         data: {
+//           msg: "Product quantity can not be zero or less",
+//         },
+//       });
+//       return;
+//     }
+//   } catch (error) {
+//     res.status(400).json({
+//       data: {
+//         msg: "Error while updating quantity",
+//       },
+//     });
+//   }
+// };
 
 module.exports = {
   getAllBooks,
-  getSingleBook,
+  //   getSingleBook,
   createNewBook,
-  updateBook,
-  deleteBook,
+  //   updateBook,
+  //   deleteBook,
 };
