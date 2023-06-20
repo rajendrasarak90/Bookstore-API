@@ -1,24 +1,36 @@
-const Books = require("../schema/books");
+const Books = require("../models/books");
 
-// To get all the books from the database
+// To get all books from database
 const getAllBooks = async (req, res) => {
   try {
     const books = await Books.find({});
-    if (books.length < 1) {
-      res.status(200).json({
-        msg: "No Books found",
-      });
-      return;
+    if (!books || books.length < 1) {
+      return res.status(200).json({ msg: "No books found" });
     }
     if (books) {
-      res.status(200).json({
+      return res.status(200).json({
         data: books,
       });
     }
   } catch (error) {
-    res.status(404).json({
-      msg: "Error in finding books",
+    console.log("Error while finding all book :", error);
+    res.status(400).json({ error: "Error while finding all book" });
+  }
+};
+
+// To get single book from the database
+const getSingleBook = async (req, res) => {
+  try {
+    const book = await Books.findById(req.params.id);
+    if (!book) {
+      return res.status(200).json({ error: "Book Not Found" });
+    }
+    return res.status(200).json({
+      data: book,
     });
+  } catch (error) {
+    console.log("Error while finding single book :", error);
+    res.status(400).json({ error: "Error while finding single book " });
   }
 };
 
@@ -26,108 +38,62 @@ const getAllBooks = async (req, res) => {
 const createNewBook = async (req, res) => {
   try {
     const book = await Books.create(req.body);
-    res.status(201).json({
+    return res.status(201).json({
       data: {
         book,
+        msg: "Book Created Successfully",
       },
     });
   } catch (error) {
-    res.status(400).json({
-      data: {
-        msg: "Error in creating new book",
-      },
-    });
+    console.log("Error while creating author:", error);
+    res.status(400).json({ error: "Error while creating author" });
   }
 };
 
-// To delete a single book from our database using id
-// const deletebook = async (req, res) => {
-//   try {
-//     const { id: bookID } = req.params;
-//     // deleting the book from database
-//     const book = await book.findOneAndDelete({
-//       _id: bookID,
-//     });
-//     if (!book) {
-//       return;
-//     }
-//     res.status(200).send({
-//       data: {
-//         msg: "book Deleted",
-//       },
-//     });
-//   } catch (error) {
-//     res.status(400).send({
-//       data: {
-//         msg: error,
-//       },
-//     });
-//   }
-// };
+// To update the book in the database
+const updateBook = async (req, res) => {
+  try {
+    const book = await Books.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!book) {
+      return res.status(404).json({ msg: "Book not found to update" });
+    }
+    return res.status(200).json({
+      data: {
+        book,
+        msg: "Book Updated Successfully",
+      },
+    });
+  } catch (error) {
+    console.log("Error while updating author:", error);
+    res.status(400).json({ error: "Error while updating author" });
+  }
+};
 
-// // To update the book quantity in the database
-// const updateBook = async (req, res) => {
-//   try {
-//     // Destructuring the bookID and Number query
-//     const { id: bookID } = req.params;
-//     const { number } = req.query;
-
-//     if (!number) {
-//       res.status(400).json({
-//         data: {
-//           msg: "Error while updating quantity",
-//         },
-//       });
-//       return;
-//     }
-
-//     const book = await book.findOne({
-//       _id: bookID,
-//     });
-//     // Adding the new numebr from the query params and the previous number of book
-//     let newQuantity = book.quantity + +number;
-
-//     if (newQuantity > 0) {
-//       // Updating the data in the database
-//       const updatedbook = await book.findOneAndUpdate(
-//         {
-//           _id: bookID,
-//         },
-//         {
-//           quantity: newQuantity,
-//         },
-//         {
-//           new: true,
-//           runValidators: true,
-//         }
-//       );
-//       res.status(200).json({
-//         data: {
-//           updatedbook,
-//           msg: "Successfully Updated",
-//         },
-//       });
-//     } else {
-//       res.status(400).json({
-//         data: {
-//           msg: "book quantity can not be zero or less",
-//         },
-//       });
-//       return;
-//     }
-//   } catch (error) {
-//     res.status(400).json({
-//       data: {
-//         msg: "Error while updating quantity",
-//       },
-//     });
-//   }
-// };
+// To delete a single book from the database using id
+const deleteBook = async (req, res) => {
+  try {
+    const book = await Books.findByIdAndDelete(req.params.id);
+    if (!book) {
+      return res.status(404).json({ msg: "Book not found to Delete" });
+    }
+    return res.status(200).send({
+      data: {
+        book,
+        msg: "Book Deleted",
+      },
+    });
+  } catch (error) {
+    console.log("Error while deleting book:", error);
+    res.status(400).json({ error: "Error while deleting book" });
+  }
+};
 
 module.exports = {
   getAllBooks,
-  //   getSingleBook,
+  getSingleBook,
   createNewBook,
-  //   updateBook,
-  //   deleteBook,
+  updateBook,
+  deleteBook,
 };

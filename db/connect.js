@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-// connecting to MongoDB Atlas using uri from dotenv file
+// connecting to MongoDB Compass using uri of localhost
 const connectDB = () => {
   mongoose
     .connect("mongodb://127.0.0.1/bookstore_api", {
@@ -9,12 +9,12 @@ const connectDB = () => {
     })
     .then((data) => {
       if (data) {
-        console.log(`Connected to DB...`);
+        console.log(`Connected to db...`);
       }
     })
     .catch((err) => {
       if (err) {
-        console.log(`Error while connecting to DB: ${err}`);
+        console.log(`Error connecting to db: ${err}`);
       }
     });
 };
