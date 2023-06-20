@@ -1,5 +1,6 @@
 const express = require("express");
 const winston = require("winston");
+const multer = require("multer");
 const PORT = 3000;
 
 const connectDB = require("./db/connect");
@@ -7,6 +8,7 @@ const books = require("./routes/books");
 const notFound = require("./middleware/not-found");
 
 const app = express();
+const upload = multer();
 
 // route for the home page
 app.get("/", (req, res) => {
@@ -18,6 +20,8 @@ app.get("/", (req, res) => {
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// Use multer for parsing form-data
+app.use(upload.none());
 
 // Configure logging errors using winston
 const logger = winston.createLogger({
